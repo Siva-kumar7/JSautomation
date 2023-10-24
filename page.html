@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Script Control</title>
+</head>
+<body>
+    <button id="runScriptButton">Run Script</button>
+    <button id="stopScriptButton">Stop Script</button>
+
+    <script>
+        let browser;
+        let page;
+
+        async function startScript() {
+            const puppeteer = require('puppeteer');
+            browser = await puppeteer.launch();
+            page = await browser.newPage();
+
+            // Load your Puppeteer automation script
+            const { yourPuppeteerScript } = require('./automation.js'); // Provide the correct path to your script
+
+            // Execute the loaded script
+            await yourPuppeteerScript(page);
+
+            await browser.close();
+        }
+
+        function stopScript() {
+            if (browser && page) {
+                browser.close();
+                alert('Script has been stopped.');
+            }
+        }
+
+        document.getElementById('runScriptButton').addEventListener('click', startScript);
+        document.getElementById('stopScriptButton').addEventListener('click', stopScript);
+    </script>
+</body>
+</html>
