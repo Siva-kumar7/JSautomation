@@ -1,12 +1,12 @@
 const puppeteer = require('puppeteer');
-const fetch = require('node-fetch'); // Make sure to install the 'node-fetch' package using npm or yarn
-
+// Make sure to install the 'node-fetch' package using npm or yarn
+const fetch = require('node-fetch'); 
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  // Replace these with your actual URLs
-  const getUrl = 'curl 'https://www.openanswers.co.uk/api/v1/join-us' \
+  // Replace  with API URLs
+  const getUrl = 'https://www.openanswers.co.uk/api/v1/join-us' \
   -H 'authority: www.openanswers.co.uk' \
   -H 'accept: application/json, text/plain, */*' \
   -H 'accept-language: en-US,en;q=0.9' \
@@ -20,7 +20,8 @@ const fetch = require('node-fetch'); // Make sure to install the 'node-fetch' pa
   -H 'sec-fetch-site: same-origin' \
   -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36' \
   --compressed'; // URL to fetch calculation data
-  const postUrl = 'curl 'https://www.openanswers.co.uk/api/v1/join-us' \
+  // URL to submit the calculation result
+  const postUrl = 'https://www.openanswers.co.uk/api/v1/join-us' \
   -H 'authority: www.openanswers.co.uk' \
   -H 'accept: application/json, text/plain, */*' \
   -H 'accept-language: en-US,en;q=0.9' \
@@ -36,14 +37,13 @@ const fetch = require('node-fetch'); // Make sure to install the 'node-fetch' pa
   -H 'sec-fetch-site: same-origin' \
   -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36' \
   --data-raw '{"answer":727805,"key":"ad5c8fab9340bc0545ebcf9b999e4f0d6e3c2e8b310d55dfe322942f9470cbf5e76f317b6a88c02ccfb91d79bfc2c32dd163b75a457fa3034aa11d5c2d2a9d65626632eb589028cf09564bf304c7e6434c12cb34687f3ff544fee72a77080376ecf2f470e10e667975b415e0c5830d6f0f066766230535d54e13caad17cb768c976a838c0f97"}' \
-  --compressed';  // URL to submit the calculation result
-
+  --compressed';  
   // Make a GET request to fetch the calculation data
   const response = await fetch(getUrl, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
-      'Authorization': 'Bearer YOUR_ACCESS_TOKEN', // Add any required headers
+      'Authorization': 'ACCESS_TOKEN',
     },
   });
   
@@ -63,7 +63,7 @@ const fetch = require('node-fetch'); // Make sure to install the 'node-fetch' pa
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer YOUR_ACCESS_TOKEN', // Add any required headers
+      'Authorization': 'ACCESS_TOKEN',
     },
     body: JSON.stringify({ result }),
   });
@@ -80,7 +80,7 @@ const fetch = require('node-fetch'); // Make sure to install the 'node-fetch' pa
 
 // Function to perform the calculation
 function performCalculation(calculationData) {
-  // Perform your calculation based on the data received from the API
-  // You can use JavaScript's eval() function to calculate the result
+  // Perform the calculation based on the data received from the API
+  // Now JavaScript's eval() function to calculate the result
   return eval(calculationData);
 }
